@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import { getEntry } from 'astro:content';
 import { getAstroMetadata } from 'astro/jsx/rehype.js';
 import { formatDate } from '../../utils';
+import Tags from '../../components/Tags.astro';
 
 const { slug } = Astro.params;
 
@@ -33,23 +34,11 @@ const { Content } = await article.render();
     <h3 class="text-lg mb-2">
       Written by {article.data.author} on {formatDate(article.data.pubDate)}
     </h3>
-    <div class="flex flex-wrap gap-2 mb-6">
-      {
-        article.data.tags.map((tag:string, index:number) => (
-          <span class={
-                index % 2 === 0
-                  ? 'px-2 py-1 bg-blue-500 text-white rounded-full text-xs hover:opacity-90'
-                  : 'px-2 py-1 bg-indigo-500 text-white rounded-full text-xs hover:opacity-90'
-              }>
-            <a href="">{tag}</a>
-          </span>
-        ))
-      }
-    </div>
+    <Tags tags={article.data.tags} />
     <img
       src={'/images/' + article.data.image}
       alt="Article Image"
-      class="w-full h-auto rounded-xl mb-6"
+      class="w-full h-auto rounded-xl my-6"
     />
     <Content />
   </article>
