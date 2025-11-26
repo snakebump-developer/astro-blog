@@ -30,7 +30,9 @@ const articlesForPage: CollectionEntry<'blog'>[] = allBlogArticles.slice((curren
       {articlesForPage.map((article) => <ArticleCard article={article} />)}
     </div>
     <!-- Pagination -->
-    <Pagination currentPage={currentPage} totalPages={totalPages} />
+    <Pagination currentPage={currentPage} totalPages={totalPages} disablePrevius={currentPage === 1} disableNext={currentPage === totalPages} />
+
+  <SearchForm
     
   </SearchForm>
 </Layout>
