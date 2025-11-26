@@ -15,24 +15,30 @@ const allBlogArticles: CollectionEntry<'blog'>[] = (
 );
 
 const currentPage: number | null = +Astro.url.searchParams.get('page')! || 1;
-const totalPages: number = Math.ceil(allBlogArticles.length / ARTICLES_PER_PAGE);
+const totalPages: number = Math.ceil(
+  allBlogArticles.length / ARTICLES_PER_PAGE
+);
 
-const articlesForPage: CollectionEntry<'blog'>[] = allBlogArticles.slice((currentPage - 1 ) * ARTICLES_PER_PAGE, currentPage * ARTICLES_PER_PAGE); 
+const articlesForPage: CollectionEntry<'blog'>[] = allBlogArticles.slice(
+  (currentPage - 1) * ARTICLES_PER_PAGE,
+  currentPage * ARTICLES_PER_PAGE
+);
 ---
 
 <Layout title="All articles TechPeople">
   <h1 class="text-2xl pb-3">All Articles</h1>
-  <SearchForm /> 
+  <SearchForm />
 
   <br />
   <!-- Main Grid -->
-    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {articlesForPage.map((article) => <ArticleCard article={article} />)}
-    </div>
-    <!-- Pagination -->
-    <Pagination currentPage={currentPage} totalPages={totalPages} disablePrevius={currentPage === 1} disableNext={currentPage === totalPages} />
-
-  <SearchForm
-    
-  </SearchForm>
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    {articlesForPage.map((article) => <ArticleCard article={article} />)}
+  </div>
+  <!-- Pagination -->
+  <Pagination
+    currentPage={currentPage}
+    totalPages={totalPages}
+    disablePrevius={currentPage === 1}
+    disableNext={currentPage === totalPages}
+  />
 </Layout>
